@@ -12,3 +12,17 @@ Features
 More
 ----
 - https://www.process.st/telegram-bot/
+
+# Development #
+- Ruby
+
+## Requirements (Debian) ##
+- sudo apt update && sudo apt install ruby-full --no-install-recommends
+- sudo apt install build-essential --no-install-recommends
+- sudo m-a prepare
+- cd telegram-bot
+- gem install bundler
+- bundler <enter>
+
+## Running ##
+- ruby bot.rb <enter>
