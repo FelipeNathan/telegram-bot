@@ -1,7 +1,2 @@
 source 'https://rubygems.org'
 gem 'telegram_bot'
-gem 'mime-types'
-gem 'netrc'
-gem 'http-accept'
-gem 'http-cookie'
-gem 'rest-client'
