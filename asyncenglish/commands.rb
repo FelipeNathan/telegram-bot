@@ -6,10 +6,13 @@ module AsyncEnglish
 
           def word
             begin
-              resp = Net::HTTP.get_response 'https://wordsapiv1.p.mashape.com/words/home/definitions'
-              definition = resp.is_a Net::HTTPSuccess ? "Hey.. success!" : "Not found..."
+              wordToSearch = 'home'
+              url = 'https://wordsapiv1.p.mashape.com/words/' + wordToSearch + '/definitions'
+              uri = URI(url)
+              resp = Net::HTTP.get(uri)
+              jsonResp = JSON.parse(resp)
             rescue
-              definition = "Oops! failed to load"
+              definition = "Oops! failed to load: " + resp.to_s
             end
       
             definition
