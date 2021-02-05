@@ -9,12 +9,21 @@ GEM
       descendants_tracker (~> 0.0.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
+    dotenv (2.7.6)
     equalizer (0.0.11)
-    excon (0.78.1)
+    faraday (1.3.0)
+      faraday-net_http (~> 1.0)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords
+    faraday-net_http (1.0.1)
     ice_nine (0.11.2)
-    telegram_bot (0.0.8)
-      excon (>= 0.30.0)
-      virtus (>= 1.0.0)
+    inflecto (0.0.2)
+    multipart-post (2.1.1)
+    ruby2_keywords (0.0.4)
+    telegram-bot-ruby (0.14.0)
+      faraday
+      inflecto
+      virtus
     thread_safe (0.3.6)
     virtus (1.0.5)
       axiom-types (~> 0.1)
@@ -27,7 +36,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  telegram_bot
+  dotenv (~> 2.7, >= 2.7.6)
+  telegram-bot-ruby
 
 BUNDLED WITH
    2.2.7
