@@ -4,18 +4,15 @@ module AsyncEnglish
           def start; "All I can do is say hello. Try the /greet command."; end 
           def greet(first_name) "Hello, #{first_name}. 🤖"; end
 
-          def word
+          def word(wordToSearch = 'home')
             begin
-              wordToSearch = 'home'
-              url = 'https://wordsapiv1.p.mashape.com/words/' + wordToSearch + '/definitions'
-              uri = URI(url)
-              resp = Net::HTTP.get(uri)
-              jsonResp = JSON.parse(resp)
-            rescue
-              definition = "Oops! failed to load: " + resp.to_s
+              puts "Word to search: #{wordToSearch}"
+              reply = AsyncEnglish::WordAPI.get_definition_of(wordToSearch)
+            rescue StandardError => e
+              reply = "Oops! failed to load: " + e.to_s
             end
       
-            definition
+            reply
           end 
 
           def qod; "Quote of the day here..." end
@@ -31,17 +28,19 @@ module AsyncEnglish
             ].join("\n")
           end
           
-          def get_message(message) 
-              command = message.text
-              case message.text
+          def get_message(command, from) 
+              case command
                 when /start/i then start
-                when /greet/i then greet(message.from.first_name)
-                when /word/i then word
+                when /greet/i then greet(from.first_name)
+                when /word/i 
+                  wordToSearch = command.split(" ")
+                  return "Please, write just 1 word" if wordToSearch.length != 2
+                  word wordToSearch[1]
                 when /qod/i then qod
                 when /help/i then help
-                else "I have no idea what #{message.text} means."
+                else "I have no idea what #{command} means."
               end
-          end 
+          end
         end
     end
 end
