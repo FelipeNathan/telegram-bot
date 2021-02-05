@@ -34,7 +34,7 @@ module AsyncEnglish
               "Hello dear, we have some commands to help you interact with me 🤖",
               "/start => I'll say hello",
               "/greet => I'll say hello for you",
-              "/word <word> => Find definitions of the given word in WordAPI",
+              "/word [word] => Find definitions of the given word in WordAPI",
               "/qod => Give a random quote of the day",
               "/help => Show this help"
             ].join("\n")
