@@ -14,23 +14,26 @@ module AsyncEnglish
                 request["x-rapidapi-host"] = AsyncEnglish::RAPID_API_HOST
 
                 response = http.request(request)
+                raise AsyncEnglish::Exceptions::WordAPIException.new response.message unless response.is_a? Net::HTTPSuccess
+
                 json = JSON.parse(response.read_body, object_class: OpenStruct)
 
-                resolve json
+                format_reply json
             end
 
-            def resolve(json)
+            private
+                def format_reply(json)
 
-                definitions = json&.definitions&.map do | d | 
-                    resolve = "<b>Definition</b>: #{d.definition}\n"
-                    resolve += "<b>Part of speech</b>: #{d.partOfSpeech}" unless d.partOfSpeech.nil?
-                    resolve
+                    definitions = json&.definitions&.map do | d | 
+                        format = "<b>Definition</b>: #{d.definition}\n"
+                        format += "<b>Part of speech</b>: #{d.partOfSpeech}" unless d.partOfSpeech.nil?
+                        format
+                    end
+
+                    reply = "<b>Word</b>: #{json&.word}\n\n"
+                    reply += definitions&.join("\n\n")
+                    reply
                 end
-
-                reply = "<b>Word</b>: #{json&.word}\n\n"
-                reply += definitions&.join("\n\n")
-                reply
-            end
         end
     end
 end

@@ -7,7 +7,10 @@ require 'uri'
 require_relative 'environment'
 require_relative 'events'
 require_relative 'word_api'
+require_relative 'quote_api'
 require_relative 'commands'
+require_relative 'exceptions/quote_api_exception'
+require_relative 'exceptions/word_api_exception'
 
 module AsyncEnglish
   class Bot
